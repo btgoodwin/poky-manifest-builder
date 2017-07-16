@@ -25,7 +25,6 @@ LABEL name="Generic OE Run Environment" \
 
 # Dependencies for Poky and Wic
 # Then install repo
-# Finally, initialize git.
 RUN apt-get update && \
     apt-get install -qy \
         build-essential \
@@ -49,14 +48,10 @@ RUN apt-get update && \
         tree && \
     \
     curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/repo && \
-    chmod a+x /usr/local/bin/repo && \
-    \
-    git config --global user.name "oe-base" && \
-    git config --global user.email "oe-base@gmail.com" && \
-    git config --global color.ui false
+    chmod a+x /usr/local/bin/repo
 
 # User sets this variable to begin a new project from a manifest URL.
-ENV REPO_URL ""
+ENV TARGET_REPO_URL ""
 
 # User TEMPLATECONF relative to the poky base directory.
 ENV TEMPLATECONF ""
