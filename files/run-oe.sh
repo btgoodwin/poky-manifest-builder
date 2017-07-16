@@ -32,4 +32,4 @@ if ! [ -f ./build-image.sh ]; then
 fi
 
 # Start the build.
-# ./build-image.sh
+./build-image.sh

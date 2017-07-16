@@ -1,14 +1,14 @@
 # This file is protected by Copyright. Please refer to the COPYRIGHT file
 # distributed with this source distribution.
 #
-# This file is part of Geon Technology's OE Builder.
+# This file is part of Geon Technology's Poky Manifest Builder.
 #
-# OE Builder is free software: you can redistribute it and/or modify it under
+# Poky Manifest Builder is free software: you can redistribute it and/or modify it under
 # the terms of the GNU Lesser General Public License as published by the Free
 # Software Foundation, either version 3 of the License, or (at your option) any
 # later version.
 #
-# OE Builder is distributed in the hope that it will be useful, but WITHOUT
+# Poky Manifest Builder is distributed in the hope that it will be useful, but WITHOUT
 # ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
 # FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more
 # details.
@@ -16,31 +16,44 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses/.
 #
-FROM ubuntu:16.04
+FROM ubuntu:14.04
 
 LABEL name="Generic OE Run Environment" \
     version="0.1" \
     maintainer="Thomas Goodwin <btgoodwin@geontech.com>" \
     vendor="Geon Technologies"
 
+# Dependencies for Poky and Wic
+# Then install repo
+# Finally, initialize git.
 RUN apt-get update && \
-    apt-get install install -qy \
-        python \
-        curl \
-        gawk \
-        wget \
-        git-core \
-        diffstat \
-        unzip \
-        texinfo \
-        gcc-multilib \
+    apt-get install -qy \
         build-essential \
         chrpath \
-        socat \
+        curl \
+        diffstat \
+        gcc-multilib \
+        gawk \
+        git-core \
         libsdl1.2-dev \
-        xterm && \
+        texinfo \
+        unzip \
+        wget \
+        xterm \
+        \
+        bzip2 \
+        dosfstools \
+        mtools \
+        parted \
+        syslinux \
+        tree && \
+    \
     curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/repo && \
-    chmod a+x /usr/local/bin/repo
+    chmod a+x /usr/local/bin/repo && \
+    \
+    git config --global user.name "oe-base" && \
+    git config --global user.email "oe-base@gmail.com" && \
+    git config --global color.ui false
 
 # User sets this variable to begin a new project from a manifest URL.
 ENV REPO_URL ""
