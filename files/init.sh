@@ -29,6 +29,7 @@ useradd --system \
 echo "${USER_NAME}  ALL=(ALL)   NOPASSWD: ALL" >> /etc/sudoers
 
 chown -R ${USER_NAME}:${EXT_GID} ${USER_HOME}
+chmod +x ${USER_RUN_OE}
 
 # For now, switch to the user.
 su ${USER_NAME}
@@ -41,7 +42,7 @@ git config --global color.ui false
 
 # If REPO_URL is non-empty, repo init and sync.
 if ! [ -z ${TARGET_REPO_URL} ]; then
-    repo init -u "${REPO_URL}" && \
+    repo init -u "${TARGET_REPO_URL}" && \
     repo sync
 fi
 
