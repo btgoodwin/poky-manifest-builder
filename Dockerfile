@@ -48,7 +48,13 @@ RUN apt-get update && \
         tree && \
     \
     curl http://commondatastorage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/repo && \
-    chmod a+x /usr/local/bin/repo
+    chmod a+x /usr/local/bin/repo && \
+    locale-gen en_US.UTF-8
+
+# To ensure locale is set
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
 
 # User sets this variable to begin a new project from a manifest URL.
 ENV TARGET_REPO_URL ""
